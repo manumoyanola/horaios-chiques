@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horarios Escolares 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --oseias: #4CAF50;
+    --oseias-dark: #388E3C;
+    --oseias-light: #E8F5E9;
+    --oseias-mid: #C8E6C9;
+    --ummi: #D4A017;
+    --ummi-dark: #B8860B;
+    --ummi-light: #FFF9E6;
+    --ummi-mid: #FCEFC7;
+    --ummi-accent: #F5D36E;
+    --caleb: #2196F3;
+    --caleb-dark: #1976D2;
+    --caleb-light: #E3F2FD;
+    --caleb-mid: #BBDEFB;
+    --delfi: #E0528D;
+    --delfi-dark: #C4346F;
+    --delfi-light: #FDF0F5;
+    --delfi-mid: #FADCE9;
+    --ada: #7C4DFF;
+    --ada-dark: #5E35B1;
+    --ada-light: #F3EEFF;
+    --ada-mid: #E0D5FC;
+    --bg: #FAFAF8;
+    --text: #2D2A26;
+    --text-soft: #7A756E;
+    --border: #E8E4DF;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #2D2A26 0%, #4A4540 100%);
+    color: white;
+    padding: 36px 20px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -15%;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(124,77,255,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%; left: 10%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(224,82,141,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .page-header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    letter-spacing: -0.02em;
+    position: relative; z-index: 1;
+  }
+  .page-header p {
+    font-size: 0.95rem;
+    opacity: 0.65;
+    margin-top: 4px;
+    position: relative; z-index: 1;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-top: 16px;
+    position: relative; z-index: 1;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .legend-dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .nav-tabs {
+    display: flex;
+    background: var(--white);
+    border-bottom: 2px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-tab {
+    flex: 1; min-width: 0;
+    padding: 14px 8px;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .nav-tab.active { color: var(--text); border-bottom-color: var(--text); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .container {
+    padding: 24px 16px 60px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon { font-size: 1.1rem; }
+  .section-subtitle {
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  /* TAB 1 */
+  .daughter-schedule { margin-bottom: 28px; }
+  .daughter-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 14px 14px 0 0;
+    color: white;
+  }
+  .daughter-header.oseias { background: linear-gradient(135deg, var(--oseias) 0%, var(--oseias-dark) 100%); }
+  .daughter-header.ummi   { background: linear-gradient(135deg, var(--ummi) 0%, var(--ummi-dark) 100%); }
+  .daughter-header.caleb  { background: linear-gradient(135deg, var(--caleb) 0%, var(--caleb-dark) 100%); }
+  .daughter-header.delfi  { background: linear-gradient(135deg, var(--delfi) 0%, var(--delfi-dark) 100%); }
+  .daughter-header.ada    { background: linear-gradient(135deg, var(--ada) 0%, var(--ada-dark) 100%); }
+
+  .daughter-header .name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+  }
+  .daughter-header .course { font-size: 0.75rem; opacity: 0.85; font-weight: 600; }
+  .daisy { margin-left: auto; font-size: 1.3rem; line-height: 1; }
+
+  .day-cards-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    overflow: hidden;
+  }
+  .day-card { border-bottom: 1px solid var(--border); }
+  .day-card:last-child { border-bottom: none; }
+  .day-card-header {
+    padding: 12px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FAFAF8;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .day-card-header .chevron { font-size: 0.7rem; color: var(--text-soft); transition: transform 0.2s; }
+  .day-card.open .chevron { transform: rotate(180deg); }
+  .day-card-body { display: none; padding: 4px 12px 12px; }
+  .day-card.open .day-card-body { display: block; }
+
+  .slot {
+    display: flex; gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f3f1ee;
+    align-items: flex-start;
+  }
+  .slot:last-child { border-bottom: none; }
+  .slot-time {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    min-width: 52px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+  .slot-subject { padding: 5px 10px; border-radius: 8px; flex: 1; }
+  .slot-subject.oseias { background: var(--oseias-light); }
+  .slot-subject.ummi   { background: var(--ummi-light); }
+  .slot-subject.caleb  { background: var(--caleb-light); }
+  .slot-subject.delfi  { background: var(--delfi-light); }
+  .slot-subject.ada    { background: var(--ada-light); }
+
+  .slot-subject .subj-name { font-weight: 700; font-size: 0.82rem; line-height: 1.2; }
+  .slot-subject.oseias .subj-name { color: var(--oseias-dark); }
+  .slot-subject.ummi   .subj-name { color: var(--ummi-dark); }
+  .slot-subject.caleb  .subj-name { color: var(--caleb-dark); }
+  .slot-subject.delfi  .subj-name { color: var(--delfi-dark); }
+  .slot-subject.ada    .subj-name { color: var(--ada-dark); }
+  .slot-subject .subj-teacher { font-size: 0.7rem; color: var(--text-soft); font-weight: 600; }
+
+  /* TAB 2 */
+  .by-day-card {
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .by-day-header {
+    padding: 14px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background: var(--text);
+    color: white;
+  }
+  .by-day-body { padding: 14px 16px; }
+  .entry-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .entry-row:last-child { border-bottom: none; }
+  .name-badge {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border-radius: 8px;
+    color: white;
+    min-width: 55px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .name-badge.oseias { background: var(--oseias); }
+  .name-badge.ummi   { background: var(--ummi); }
+  .name-badge.caleb  { background: var(--caleb); }
+  .name-badge.delfi  { background: var(--delfi); }
+  .name-badge.ada    { background: var(--ada); }
+  .time-block { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.92rem; }
+  .time-block .arr { color: var(--text-soft); font-size: 0.8rem; }
+  .time-extra { font-size: 0.72rem; color: var(--text-soft); font-weight: 600; font-style: italic; margin-left: auto; text-align: right; }
+
+  /* TAB 3 */
+  .by-daughter-card {
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .by-daughter-header {
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 10px;
+    color: white;
+  }
+  .by-daughter-header.oseias { background: linear-gradient(135deg, var(--oseias) 0%, var(--oseias-dark) 100%); }
+  .by-daughter-header.ummi   { background: linear-gradient(135deg, var(--ummi) 0%, var(--ummi-dark) 100%); }
+  .by-daughter-header.caleb  { background: linear-gradient(135deg, var(--caleb) 0%, var(--caleb-dark) 100%); }
+  .by-daughter-header.delfi  { background: linear-gradient(135deg, var(--delfi) 0%, var(--delfi-dark) 100%); }
+  .by-daughter-header.ada    { background: linear-gradient(135deg, var(--ada) 0%, var(--ada-dark) 100%); }
+  .by-daughter-header .bd-name { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem; }
+  .by-daughter-header .bd-course { font-size: 0.75rem; opacity: 0.85; font-weight: 600; }
+  .bd-body { padding: 6px 16px 14px; }
+  .bd-day-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid #f3f1ee;
+  }
+  .bd-day-row:last-child { border-bottom: none; }
+  .bd-day-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.82rem; min-width: 75px; color: var(--text); flex-shrink: 0; }
+  .bd-times { font-weight: 700; font-size: 0.92rem; display: flex; align-items: center; gap: 8px; }
+  .bd-times .arr { color: var(--text-soft); font-size: 0.8rem; }
+  .bd-note { margin-left: auto; font-size: 0.72rem; color: var(--text-soft); font-weight: 600; font-style: italic; text-align: right; }
+
+  @media (min-width: 700px) {
+    .container { max-width: 650px; padding: 32px 24px 60px; }
+    .page-header { padding: 44px 28px 36px; }
+    .page-header h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Horarios Escolares 2026</h1>
+  <p>Inicio de clases</p>
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:var(--oseias)"></div>
+      Oseías 🌿 • 3° Grado "A"
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:var(--ummi)"></div>
+      Ummi 🌼 • 1° "A"
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:var(--caleb)"></div>
+      Caleb 🛡️ • 2° Año "1°"
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:var(--delfi)"></div>
+      Delfi 🦄 • 3° "B"
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:var(--ada)"></div>
+      Ada 👜 • 6° "A" Econ.
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="showTab(0)">📋 Horarios</div>
+  <div class="nav-tab" onclick="showTab(1)">📅 Por Día</div>
+  <div class="nav-tab" onclick="showTab(2)">🧒 Por Chique</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- TAB 1: HORARIOS COMPLETOS                                        -->
+<!-- ================================================================ -->
+<div class="tab-content active" id="tab0">
+<div class="container">
+<div class="section-title"><span class="icon">📋</span> Horarios Completos</div>
+<p class="section-subtitle">Tocá cada día para ver las materias</p>
+
+<!-- OSEÍAS -->
+<div class="daughter-schedule">
+  <div class="daughter-header oseias">
+    <div>
+      <div class="name">Oseías</div>
+      <div class="course">3° Grado "A"</div>
+    </div>
+    <span class="daisy">🌿</span>
+  </div>
+  <div class="day-cards-wrap">
+    <div class="day-card open">
+      <div class="day-card-header" onclick="toggleDay(this)">Lunes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:10–12:00</span><div class="slot-subject oseias"><div class="subj-name">Jornada escolar</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Martes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:10–12:00</span><div class="slot-subject oseias"><div class="subj-name">Jornada escolar</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Miércoles <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:10–12:00</span><div class="slot-subject oseias"><div class="subj-name">Jornada escolar</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Jueves <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:10–12:00</span><div class="slot-subject oseias"><div class="subj-name">Jornada escolar</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Viernes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:10–12:00</span><div class="slot-subject oseias"><div class="subj-name">Jornada escolar</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UMMI -->
+<div class="daughter-schedule">
+  <div class="daughter-header ummi">
+    <div>
+      <div class="name">Ummi</div>
+      <div class="course">1° Año "A"</div>
+    </div>
+    <span class="daisy">🌼</span>
+  </div>
+  <div class="day-cards-wrap">
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Lunes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ummi"><div class="subj-name">Cs. Sociales</div><div class="subj-teacher">Suarez</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ummi"><div class="subj-name">Cs. Sociales</div><div class="subj-teacher">Suarez</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ummi"><div class="subj-name">Inglés</div><div class="subj-teacher">Gauna</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ummi"><div class="subj-name">Inglés</div><div class="subj-teacher">Gauna</div></div></div>
+        <div class="slot"><span class="slot-time">12:00–13:00</span><div class="slot-subject ummi"><div class="subj-name">Ed. Física</div></div></div>
+        <div class="slot"><span class="slot-time">13:00–14:00</span><div class="slot-subject ummi"><div class="subj-name">Ed. Física</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Martes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ummi"><div class="subj-name">Cs. Naturales</div><div class="subj-teacher">Mac Dougall</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ummi"><div class="subj-name">Cs. Naturales</div><div class="subj-teacher">Mac Dougall</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ummi"><div class="subj-name">C. de la Ciud.</div><div class="subj-teacher">Capotorto</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ummi"><div class="subj-name">C. de la Ciud.</div><div class="subj-teacher">Capotorto</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Miércoles <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ummi"><div class="subj-name">Ed. Artística</div><div class="subj-teacher">Podmoguilnye</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ummi"><div class="subj-name">Ed. Artística</div><div class="subj-teacher">Podmoguilnye</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ummi"><div class="subj-name">Cs. Naturales</div><div class="subj-teacher">Mac Dougall</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ummi"><div class="subj-name">Cs. Naturales</div><div class="subj-teacher">Mac Dougall</div></div></div>
+        <div class="slot"><span class="slot-time">12:00–13:00</span><div class="slot-subject ummi"><div class="subj-name">Matemática</div><div class="subj-teacher">Portillo</div></div></div>
+        <div class="slot"><span class="slot-time">13:00–14:00</span><div class="slot-subject ummi"><div class="subj-name">Matemática</div><div class="subj-teacher">Portillo</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Jueves <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ummi"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Veliz</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ummi"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Veliz</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ummi"><div class="subj-name">Matemática</div><div class="subj-teacher">Portillo</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ummi"><div class="subj-name">Matemática</div><div class="subj-teacher">Portillo</div></div></div>
+        <div class="slot"><span class="slot-time">12:00–13:00</span><div class="slot-subject ummi"><div class="subj-name">Cs. Sociales</div><div class="subj-teacher">Suarez</div></div></div>
+        <div class="slot"><span class="slot-time">13:00–14:00</span><div class="slot-subject ummi"><div class="subj-name">Cs. Sociales</div><div class="subj-teacher">Suarez</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Viernes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ummi"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Veliz</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ummi"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Veliz</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ummi"><div class="subj-name">Ed. en la Fe</div><div class="subj-teacher">Rubattino</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ummi"><div class="subj-name">Ed. en la Fe</div><div class="subj-teacher">Rubattino</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CALEB -->
+<div class="daughter-schedule">
+  <div class="daughter-header caleb">
+    <div>
+      <div class="name">Caleb</div>
+      <div class="course">2° Año "1°"</div>
+    </div>
+    <span class="daisy">🛡️</span>
+  </div>
+  <div class="day-cards-wrap">
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Lunes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject caleb"><div class="subj-name">Físico-Química</div><div class="subj-teacher">Funes Paola</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject caleb"><div class="subj-name">Físico-Química</div><div class="subj-teacher">Funes Paola</div></div></div>
+        <div class="slot"><span class="slot-time">9:40–10:40</span><div class="slot-subject caleb"><div class="subj-name">C. Ciudadana</div><div class="subj-teacher">Raggio Matías</div></div></div>
+        <div class="slot"><span class="slot-time">10:40–11:40</span><div class="slot-subject caleb"><div class="subj-name">C. Ciudadana</div><div class="subj-teacher">Raggio Matías</div></div></div>
+        <div class="slot"><span class="slot-time">11:50–12:50</span><div class="slot-subject caleb"><div class="subj-name">Matemática</div><div class="subj-teacher">Cáceres Pablo</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Martes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject caleb"><div class="subj-name">Matemática</div><div class="subj-teacher">Cáceres Pablo</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject caleb"><div class="subj-name">Matemática</div><div class="subj-teacher">Cáceres Pablo</div></div></div>
+        <div class="slot"><span class="slot-time">9:40–10:40</span><div class="slot-subject caleb"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Casafú Yésica / Bergara M. Soledad</div></div></div>
+        <div class="slot"><span class="slot-time">10:40–11:40</span><div class="slot-subject caleb"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Casafú Yésica / Bergara M. Soledad</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Miércoles <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject caleb"><div class="subj-name">Historia</div><div class="subj-teacher">Oliva Betsabé</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject caleb"><div class="subj-name">Historia</div><div class="subj-teacher">Oliva Betsabé</div></div></div>
+        <div class="slot"><span class="slot-time">9:40–10:40</span><div class="slot-subject caleb"><div class="subj-name">Geografía</div><div class="subj-teacher">Gauto Norma Camila / Ivagaza Osvaldo</div></div></div>
+        <div class="slot"><span class="slot-time">10:40–11:40</span><div class="slot-subject caleb"><div class="subj-name">Geografía</div><div class="subj-teacher">Gauto Norma Camila / Ivagaza Osvaldo</div></div></div>
+        <div class="slot"><span class="slot-time">10:40–11:40</span><div class="slot-subject caleb"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Casafú Yésica / Bergara M. Soledad</div></div></div>
+        <div class="slot"><span class="slot-time">11:50–12:50</span><div class="slot-subject caleb"><div class="subj-name">Matemática</div><div class="subj-teacher">Cáceres Pablo</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Jueves <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject caleb"><div class="subj-name">Inglés</div><div class="subj-teacher">Safi Jésica</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject caleb"><div class="subj-name">Inglés</div><div class="subj-teacher">Safi Jésica</div></div></div>
+        <div class="slot"><span class="slot-time">9:40–10:40</span><div class="slot-subject caleb"><div class="subj-name">Ed. Artística Danza</div><div class="subj-teacher">Sosa Codutti Diego</div></div></div>
+        <div class="slot"><span class="slot-time">10:40–11:40</span><div class="slot-subject caleb"><div class="subj-name">Ed. Artística Danza</div><div class="subj-teacher">Sosa Codutti Diego</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Viernes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject caleb"><div class="subj-name">Biología</div><div class="subj-teacher">Valiente Cristian / Mutka Laura</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject caleb"><div class="subj-name">Biología</div><div class="subj-teacher">Valiente Cristian / Mutka Laura</div></div></div>
+        <div class="slot"><span class="slot-time">9:40–10:40</span><div class="slot-subject caleb"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Casafú Yésica / Bergara M. Soledad</div></div></div>
+        <div class="slot"><span class="slot-time">10:40–11:40</span><div class="slot-subject caleb"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Casafú Yésica / Bergara M. Soledad</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELFI -->
+<div class="daughter-schedule">
+  <div class="daughter-header delfi">
+    <div>
+      <div class="name">Delfi</div>
+      <div class="course">3° Año "B"</div>
+    </div>
+    <span class="daisy">🦄</span>
+  </div>
+  <div class="day-cards-wrap">
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Lunes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject delfi"><div class="subj-name">Geografía</div><div class="subj-teacher">Pradejczuk</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject delfi"><div class="subj-name">Geografía</div><div class="subj-teacher">Pradejczuk</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject delfi"><div class="subj-name">Constr. Ciud.</div><div class="subj-teacher">Reta</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject delfi"><div class="subj-name">Constr. Ciud.</div><div class="subj-teacher">Reta</div></div></div>
+        <div class="slot"><span class="slot-time">12:00–13:00</span><div class="slot-subject delfi"><div class="subj-name">Historia</div><div class="subj-teacher">Suarez</div></div></div>
+        <div class="slot"><span class="slot-time">13:00–14:00</span><div class="slot-subject delfi"><div class="subj-name">Historia</div><div class="subj-teacher">Suarez</div></div></div>
+        <div class="slot"><span class="slot-time">14:00–15:00</span><div class="slot-subject delfi"><div class="subj-name">Ed. Física</div></div></div>
+        <div class="slot"><span class="slot-time">15:00–16:00</span><div class="slot-subject delfi"><div class="subj-name">Ed. Física</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Martes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject delfi"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Macello</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject delfi"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Macello</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject delfi"><div class="subj-name">Inglés</div><div class="subj-teacher">Gauna</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject delfi"><div class="subj-name">Inglés</div><div class="subj-teacher">Gauna</div></div></div>
+        <div class="slot"><span class="slot-time">12:00–13:00</span><div class="slot-subject delfi"><div class="subj-name">Matemática</div><div class="subj-teacher">Fagoaga</div></div></div>
+        <div class="slot"><span class="slot-time">13:00–14:00</span><div class="slot-subject delfi"><div class="subj-name">Matemática</div><div class="subj-teacher">Fagoaga</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Miércoles <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject delfi"><div class="subj-name">Físico Química</div><div class="subj-teacher">Barbero</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject delfi"><div class="subj-name">Físico Química</div><div class="subj-teacher">Barbero</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject delfi"><div class="subj-name">Matemática</div><div class="subj-teacher">Fagoaga</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject delfi"><div class="subj-name">Matemática</div><div class="subj-teacher">Fagoaga</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Jueves <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject delfi"><div class="subj-name">Ed. Artística</div><div class="subj-teacher">Podmoguilnye</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject delfi"><div class="subj-name">Ed. Artística</div><div class="subj-teacher">Podmoguilnye</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject delfi"><div class="subj-name">Ed. en la Fe</div><div class="subj-teacher">Gomez</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject delfi"><div class="subj-name">Ed. en la Fe</div><div class="subj-teacher">Gomez</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Viernes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject delfi"><div class="subj-name">Biología</div><div class="subj-teacher">Guerrero</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject delfi"><div class="subj-name">Biología</div><div class="subj-teacher">Guerrero</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject delfi"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Macello</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject delfi"><div class="subj-name">Práct. del Leng.</div><div class="subj-teacher">Macello</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADA -->
+<div class="daughter-schedule">
+  <div class="daughter-header ada">
+    <div>
+      <div class="name">Ada</div>
+      <div class="course">6° Año "A" — Economía y Adm.</div>
+    </div>
+    <span class="daisy">👜</span>
+  </div>
+  <div class="day-cards-wrap">
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Lunes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ada"><div class="subj-name">Inglés</div><div class="subj-teacher">Dozo</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ada"><div class="subj-name">Inglés</div><div class="subj-teacher">Dozo</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ada"><div class="subj-name">Mat. Cicl. Sup.</div><div class="subj-teacher">Faye</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ada"><div class="subj-name">Mat. Cicl. Sup.</div><div class="subj-teacher">Faye</div></div></div>
+        <div class="slot"><span class="slot-time">12:00–13:00</span><div class="slot-subject ada"><div class="subj-name">Arte</div><div class="subj-teacher">Zarpas</div></div></div>
+        <div class="slot"><span class="slot-time">13:00–14:00</span><div class="slot-subject ada"><div class="subj-name">Arte</div><div class="subj-teacher">Zarpas</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Martes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ada"><div class="subj-name">Ec. Política</div><div class="subj-teacher">Ricetta</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ada"><div class="subj-name">Literatura</div><div class="subj-teacher">Andrés R.</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ada"><div class="subj-name">Proy. Org.</div><div class="subj-teacher">Peralta</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ada"><div class="subj-name">Proy. Org.</div><div class="subj-teacher">Peralta</div></div></div>
+        <div class="slot"><span class="slot-time">12:00–13:00</span><div class="slot-subject ada"><div class="subj-name">Ec. Política</div><div class="subj-teacher">Ricetta</div></div></div>
+        <div class="slot"><span class="slot-time">13:00–14:00</span><div class="slot-subject ada"><div class="subj-name">Ec. Política</div><div class="subj-teacher">Ricetta</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Miércoles <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ada"><div class="subj-name">Filosofía</div><div class="subj-teacher">Denis</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ada"><div class="subj-name">Filosofía</div><div class="subj-teacher">Denis</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ada"><div class="subj-name">Mat. Cicl. Sup.</div><div class="subj-teacher">Faye</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ada"><div class="subj-name">Mat. Cicl. Sup.</div><div class="subj-teacher">Faye</div></div></div>
+        <div class="slot"><span class="slot-time">16:00–17:00</span><div class="slot-subject ada"><div class="subj-name">Ed. Física</div></div></div>
+        <div class="slot"><span class="slot-time">17:00–18:00</span><div class="slot-subject ada"><div class="subj-name">Ed. Física</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Jueves <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ada"><div class="subj-name">Ed. en la Fe</div><div class="subj-teacher">Gomez</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ada"><div class="subj-name">Ed. en la Fe</div><div class="subj-teacher">Gomez</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ada"><div class="subj-name">Proy. Org.</div><div class="subj-teacher">Peralta</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ada"><div class="subj-name">Proy. Org.</div><div class="subj-teacher">Peralta</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header" onclick="toggleDay(this)">Viernes <span class="chevron">▼</span></div>
+      <div class="day-card-body">
+        <div class="slot"><span class="slot-time">7:30–8:30</span><div class="slot-subject ada"><div class="subj-name">Trab. y Ciud.</div><div class="subj-teacher">Carzino</div></div></div>
+        <div class="slot"><span class="slot-time">8:30–9:30</span><div class="slot-subject ada"><div class="subj-name">Trab. y Ciud.</div><div class="subj-teacher">Carzino</div></div></div>
+        <div class="slot"><span class="slot-time">9:45–10:45</span><div class="slot-subject ada"><div class="subj-name">Literatura</div><div class="subj-teacher">Andrés R.</div></div></div>
+        <div class="slot"><span class="slot-time">10:45–11:45</span><div class="slot-subject ada"><div class="subj-name">Literatura</div><div class="subj-teacher">Andrés R.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- TAB 2: POR DÍA                                                   -->
+<!-- ================================================================ -->
+<div class="tab-content" id="tab1">
+<div class="container">
+<div class="section-title"><span class="icon">📅</span> Vista por Día</div>
+<p class="section-subtitle">A qué hora entra y sale cada une</p>
+
+<!-- LUNES -->
+<div class="by-day-card">
+  <div class="by-day-header">Lunes</div>
+  <div class="by-day-body">
+    <div class="entry-row"><span class="name-badge oseias">Ose</span><div class="time-block">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="entry-row"><span class="name-badge ummi">Ummi</span><div class="time-block">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="entry-row"><span class="name-badge caleb">Caleb</span><div class="time-block">7:30 <span class="arr">→</span> 12:50</div></div>
+    <div class="entry-row"><span class="name-badge delfi">Delfi</span><div class="time-block">7:30 <span class="arr">→</span> 16:00</div></div>
+    <div class="entry-row"><span class="name-badge ada">Ada</span><div class="time-block">7:30 <span class="arr">→</span> 14:00</div></div>
+  </div>
+</div>
+
+<!-- MARTES -->
+<div class="by-day-card">
+  <div class="by-day-header">Martes</div>
+  <div class="by-day-body">
+    <div class="entry-row"><span class="name-badge oseias">Ose</span><div class="time-block">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="entry-row"><span class="name-badge ummi">Ummi</span><div class="time-block">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="entry-row"><span class="name-badge caleb">Caleb</span><div class="time-block">7:30 <span class="arr">→</span> 11:40</div></div>
+    <div class="entry-row"><span class="name-badge delfi">Delfi</span><div class="time-block">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="entry-row"><span class="name-badge ada">Ada</span><div class="time-block">7:30 <span class="arr">→</span> 14:00</div></div>
+  </div>
+</div>
+
+<!-- MIÉRCOLES -->
+<div class="by-day-card">
+  <div class="by-day-header">Miércoles</div>
+  <div class="by-day-body">
+    <div class="entry-row"><span class="name-badge oseias">Ose</span><div class="time-block">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="entry-row"><span class="name-badge ummi">Ummi</span><div class="time-block">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="entry-row"><span class="name-badge caleb">Caleb</span><div class="time-block">7:30 <span class="arr">→</span> 12:50</div></div>
+    <div class="entry-row"><span class="name-badge delfi">Delfi</span><div class="time-block">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="entry-row"><span class="name-badge ada">Ada</span><div class="time-block">7:30 <span class="arr">→</span> 11:45</div><span class="time-extra">+ Ed. Fís.<br>16:00→18:00</span></div>
+  </div>
+</div>
+
+<!-- JUEVES -->
+<div class="by-day-card">
+  <div class="by-day-header">Jueves</div>
+  <div class="by-day-body">
+    <div class="entry-row"><span class="name-badge oseias">Ose</span><div class="time-block">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="entry-row"><span class="name-badge ummi">Ummi</span><div class="time-block">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="entry-row"><span class="name-badge caleb">Caleb</span><div class="time-block">7:30 <span class="arr">→</span> 11:40</div></div>
+    <div class="entry-row"><span class="name-badge delfi">Delfi</span><div class="time-block">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="entry-row"><span class="name-badge ada">Ada</span><div class="time-block">7:30 <span class="arr">→</span> 11:45</div></div>
+  </div>
+</div>
+
+<!-- VIERNES -->
+<div class="by-day-card">
+  <div class="by-day-header">Viernes</div>
+  <div class="by-day-body">
+    <div class="entry-row"><span class="name-badge oseias">Ose</span><div class="time-block">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="entry-row"><span class="name-badge ummi">Ummi</span><div class="time-block">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="entry-row"><span class="name-badge caleb">Caleb</span><div class="time-block">7:30 <span class="arr">→</span> 11:40</div></div>
+    <div class="entry-row"><span class="name-badge delfi">Delfi</span><div class="time-block">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="entry-row"><span class="name-badge ada">Ada</span><div class="time-block">7:30 <span class="arr">→</span> 11:45</div></div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- TAB 3: POR CHIQUE                                                -->
+<!-- ================================================================ -->
+<div class="tab-content" id="tab2">
+<div class="container">
+<div class="section-title"><span class="icon">🧒</span> Vista por Chique</div>
+<p class="section-subtitle">Cada une con sus horarios de la semana</p>
+
+<!-- OSEÍAS -->
+<div class="by-daughter-card">
+  <div class="by-daughter-header oseias">
+    <div>
+      <div class="bd-name">🌿 Oseías</div>
+      <div class="bd-course">3° Grado "A"</div>
+    </div>
+  </div>
+  <div class="bd-body">
+    <div class="bd-day-row"><span class="bd-day-label">Lunes</span><div class="bd-times">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Martes</span><div class="bd-times">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Miércoles</span><div class="bd-times">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Jueves</span><div class="bd-times">7:10 <span class="arr">→</span> 12:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Viernes</span><div class="bd-times">7:10 <span class="arr">→</span> 12:00</div></div>
+  </div>
+</div>
+
+<!-- UMMI -->
+<div class="by-daughter-card">
+  <div class="by-daughter-header ummi">
+    <div>
+      <div class="bd-name">🌼 Ummi</div>
+      <div class="bd-course">1° Año "A"</div>
+    </div>
+  </div>
+  <div class="bd-body">
+    <div class="bd-day-row"><span class="bd-day-label">Lunes</span><div class="bd-times">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Martes</span><div class="bd-times">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Miércoles</span><div class="bd-times">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Jueves</span><div class="bd-times">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Viernes</span><div class="bd-times">7:30 <span class="arr">→</span> 11:45</div></div>
+  </div>
+</div>
+
+<!-- CALEB -->
+<div class="by-daughter-card">
+  <div class="by-daughter-header caleb">
+    <div>
+      <div class="bd-name">🛡️ Caleb</div>
+      <div class="bd-course">2° Año "1°"</div>
+    </div>
+  </div>
+  <div class="bd-body">
+    <div class="bd-day-row"><span class="bd-day-label">Lunes</span><div class="bd-times">7:30 <span class="arr">→</span> 12:50</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Martes</span><div class="bd-times">7:30 <span class="arr">→</span> 11:40</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Miércoles</span><div class="bd-times">7:30 <span class="arr">→</span> 12:50</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Jueves</span><div class="bd-times">7:30 <span class="arr">→</span> 11:40</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Viernes</span><div class="bd-times">7:30 <span class="arr">→</span> 11:40</div></div>
+  </div>
+</div>
+
+<!-- DELFI -->
+<div class="by-daughter-card">
+  <div class="by-daughter-header delfi">
+    <div>
+      <div class="bd-name">🦄 Delfi</div>
+      <div class="bd-course">3° Año "B"</div>
+    </div>
+  </div>
+  <div class="bd-body">
+    <div class="bd-day-row"><span class="bd-day-label">Lunes</span><div class="bd-times">7:30 <span class="arr">→</span> 16:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Martes</span><div class="bd-times">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Miércoles</span><div class="bd-times">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Jueves</span><div class="bd-times">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Viernes</span><div class="bd-times">7:30 <span class="arr">→</span> 11:45</div></div>
+  </div>
+</div>
+
+<!-- ADA -->
+<div class="by-daughter-card">
+  <div class="by-daughter-header ada">
+    <div>
+      <div class="bd-name">👜 Ada</div>
+      <div class="bd-course">6° Año "A" — Economía y Adm.</div>
+    </div>
+  </div>
+  <div class="bd-body">
+    <div class="bd-day-row"><span class="bd-day-label">Lunes</span><div class="bd-times">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Martes</span><div class="bd-times">7:30 <span class="arr">→</span> 14:00</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Miércoles</span><div class="bd-times">7:30 <span class="arr">→</span> 11:45</div><span class="bd-note">+ Ed. Fís. 16:00→18:00</span></div>
+    <div class="bd-day-row"><span class="bd-day-label">Jueves</span><div class="bd-times">7:30 <span class="arr">→</span> 11:45</div></div>
+    <div class="bd-day-row"><span class="bd-day-label">Viernes</span><div class="bd-times">7:30 <span class="arr">→</span> 11:45</div></div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function showTab(i) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab' + i).classList.add('active');
+  document.querySelectorAll('.nav-tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+}
+function toggleDay(el) {
+  el.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>

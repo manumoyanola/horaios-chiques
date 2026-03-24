@@ -312,6 +312,84 @@
   .bd-times .arr { color: var(--text-soft); font-size: 0.8rem; }
   .bd-note { margin-left: auto; font-size: 0.72rem; color: var(--text-soft); font-weight: 600; font-style: italic; text-align: right; }
 
+  /* TAB 4 - GRILLA */
+  .chique-btn {
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .chique-btn.active { opacity: 1; transform: scale(1.05); }
+  .chique-btn:hover { opacity: 0.85; }
+
+  .grilla-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 8px; }
+  .grilla {
+    display: grid;
+    grid-template-columns: 72px repeat(5, minmax(90px, 1fr));
+    gap: 3px;
+    min-width: 500px;
+  }
+  .g-head {
+    background: var(--text);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .g-time {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.65rem;
+    color: var(--text-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4px 2px;
+    line-height: 1.3;
+  }
+  .g-cell {
+    border-radius: 7px;
+    padding: 6px 7px;
+    min-height: 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .g-cell.oseias { background: var(--oseias-light); }
+  .g-cell.ummi   { background: var(--ummi-light); }
+  .g-cell.caleb  { background: var(--caleb-light); }
+  .g-cell.delfi  { background: var(--delfi-light); }
+  .g-cell.ada    { background: var(--ada-light); }
+  .g-cell.g-empty { background: #f3f1ee; }
+  .g-subj {
+    font-weight: 700;
+    font-size: 0.72rem;
+    line-height: 1.2;
+  }
+  .g-cell.oseias .g-subj { color: var(--oseias-dark); }
+  .g-cell.ummi   .g-subj { color: var(--ummi-dark); }
+  .g-cell.caleb  .g-subj { color: var(--caleb-dark); }
+  .g-cell.delfi  .g-subj { color: var(--delfi-dark); }
+  .g-cell.ada    .g-subj { color: var(--ada-dark); }
+  .g-tchr {
+    font-size: 0.63rem;
+    color: var(--text-soft);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
   @media (min-width: 700px) {
     .container { max-width: 650px; padding: 32px 24px 60px; }
     .page-header { padding: 44px 28px 36px; }
@@ -354,6 +432,7 @@
   <div class="nav-tab active" onclick="showTab(0)">📋 Horarios</div>
   <div class="nav-tab" onclick="showTab(1)">📅 Por Día</div>
   <div class="nav-tab" onclick="showTab(2)">🧒 Por Chique</div>
+  <div class="nav-tab" onclick="showTab(3)">🗓️ Grilla</div>
 </div>
 
 <!-- ================================================================ -->
@@ -840,6 +919,269 @@
 </div>
 </div>
 
+<!-- ================================================================ -->
+<!-- TAB 4: GRILLA SEMANAL                                           -->
+<!-- ================================================================ -->
+<div class="tab-content" id="tab3">
+<div class="container" style="max-width:100%;padding:16px 8px 60px;">
+<div class="section-title" style="padding:0 8px 4px;"><span class="icon">🗓️</span> Grilla Semanal</div>
+<p class="section-subtitle" style="padding:0 8px 16px;">Vista semanal por chique</p>
+
+<!-- Selector de chique -->
+<div style="display:flex;gap:8px;flex-wrap:wrap;padding:0 8px 20px;">
+  <button class="chique-btn active" onclick="showChique('oseias')" style="background:linear-gradient(135deg,#4CAF50,#388E3C)">🌿 Oseías</button>
+  <button class="chique-btn" onclick="showChique('ummi')" style="background:linear-gradient(135deg,#D4A017,#B8860B)">🌼 Ummi</button>
+  <button class="chique-btn" onclick="showChique('caleb')" style="background:linear-gradient(135deg,#2196F3,#1976D2)">🛡️ Caleb</button>
+  <button class="chique-btn" onclick="showChique('delfi')" style="background:linear-gradient(135deg,#E0528D,#C4346F)">🦄 Delfi</button>
+  <button class="chique-btn" onclick="showChique('ada')" style="background:linear-gradient(135deg,#7C4DFF,#5E35B1)">👜 Ada</button>
+</div>
+
+<!-- GRILLAS -->
+<div id="grilla-oseias" class="grilla-wrap">
+  <div class="grilla">
+    <div class="g-head"></div>
+    <div class="g-head">Lunes</div><div class="g-head">Martes</div><div class="g-head">Miérc.</div><div class="g-head">Jueves</div><div class="g-head">Viernes</div>
+    <div class="g-time">7:10–12:00</div>
+    <div class="g-cell oseias"><div class="g-subj">Jornada escolar</div></div>
+    <div class="g-cell oseias"><div class="g-subj">Jornada escolar</div></div>
+    <div class="g-cell oseias"><div class="g-subj">Jornada escolar</div></div>
+    <div class="g-cell oseias"><div class="g-subj">Jornada escolar</div></div>
+    <div class="g-cell oseias"><div class="g-subj">Jornada escolar</div></div>
+  </div>
+</div>
+
+<div id="grilla-ummi" class="grilla-wrap" style="display:none;">
+  <div class="grilla">
+    <div class="g-head"></div>
+    <div class="g-head">Lunes</div><div class="g-head">Martes</div><div class="g-head">Miérc.</div><div class="g-head">Jueves</div><div class="g-head">Viernes</div>
+    <!-- 7:30 -->
+    <div class="g-time">7:30–8:30</div>
+    <div class="g-cell ummi"><div class="g-subj">Cs. Sociales</div><div class="g-tchr">Suarez</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Cs. Naturales</div><div class="g-tchr">Mac Dougall</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Ed. Artística</div><div class="g-tchr">Podmoguilnye</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Veliz</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Veliz</div></div>
+    <!-- 8:30 -->
+    <div class="g-time">8:30–9:30</div>
+    <div class="g-cell ummi"><div class="g-subj">Cs. Sociales</div><div class="g-tchr">Suarez</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Cs. Naturales</div><div class="g-tchr">Mac Dougall</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Ed. Artística</div><div class="g-tchr">Podmoguilnye</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Veliz</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Veliz</div></div>
+    <!-- 9:45 -->
+    <div class="g-time">9:45–10:45</div>
+    <div class="g-cell ummi"><div class="g-subj">Inglés</div><div class="g-tchr">Gauna</div></div>
+    <div class="g-cell ummi"><div class="g-subj">C. de la Ciud.</div><div class="g-tchr">Capotorto</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Cs. Naturales</div><div class="g-tchr">Mac Dougall</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Matemática</div><div class="g-tchr">Portillo</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Ed. en la Fe</div><div class="g-tchr">Rubattino</div></div>
+    <!-- 10:45 -->
+    <div class="g-time">10:45–11:45</div>
+    <div class="g-cell ummi"><div class="g-subj">Inglés</div><div class="g-tchr">Gauna</div></div>
+    <div class="g-cell ummi"><div class="g-subj">C. de la Ciud.</div><div class="g-tchr">Capotorto</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Cs. Naturales</div><div class="g-tchr">Mac Dougall</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Matemática</div><div class="g-tchr">Portillo</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Ed. en la Fe</div><div class="g-tchr">Rubattino</div></div>
+    <!-- 12:00 -->
+    <div class="g-time">12:00–13:00</div>
+    <div class="g-cell ummi"><div class="g-subj">Ed. Física</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell ummi"><div class="g-subj">Matemática</div><div class="g-tchr">Portillo</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Cs. Sociales</div><div class="g-tchr">Suarez</div></div>
+    <div class="g-cell g-empty"></div>
+    <!-- 13:00 -->
+    <div class="g-time">13:00–14:00</div>
+    <div class="g-cell ummi"><div class="g-subj">Ed. Física</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell ummi"><div class="g-subj">Matemática</div><div class="g-tchr">Portillo</div></div>
+    <div class="g-cell ummi"><div class="g-subj">Cs. Sociales</div><div class="g-tchr">Suarez</div></div>
+    <div class="g-cell g-empty"></div>
+  </div>
+</div>
+
+<div id="grilla-caleb" class="grilla-wrap" style="display:none;">
+  <div class="grilla">
+    <div class="g-head"></div>
+    <div class="g-head">Lunes</div><div class="g-head">Martes</div><div class="g-head">Miérc.</div><div class="g-head">Jueves</div><div class="g-head">Viernes</div>
+    <!-- 7:30 -->
+    <div class="g-time">7:30–8:30</div>
+    <div class="g-cell caleb"><div class="g-subj">Físico-Química</div><div class="g-tchr">Funes Paola</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Matemática</div><div class="g-tchr">Cáceres Pablo</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Historia</div><div class="g-tchr">Oliva Betsabé</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Inglés</div><div class="g-tchr">Safi Jésica</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Biología</div><div class="g-tchr">Valiente / Mutka</div></div>
+    <!-- 8:30 -->
+    <div class="g-time">8:30–9:30</div>
+    <div class="g-cell caleb"><div class="g-subj">Físico-Química</div><div class="g-tchr">Funes Paola</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Matemática</div><div class="g-tchr">Cáceres Pablo</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Historia</div><div class="g-tchr">Oliva Betsabé</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Inglés</div><div class="g-tchr">Safi Jésica</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Biología</div><div class="g-tchr">Valiente / Mutka</div></div>
+    <!-- 9:40 -->
+    <div class="g-time">9:40–10:40</div>
+    <div class="g-cell caleb"><div class="g-subj">C. Ciudadana</div><div class="g-tchr">Raggio Matías</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Casafú / Bergara</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Geografía</div><div class="g-tchr">Gauto / Ivagaza</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Ed. Art. Danza</div><div class="g-tchr">Sosa Codutti</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Casafú / Bergara</div></div>
+    <!-- 10:40 -->
+    <div class="g-time">10:40–11:40</div>
+    <div class="g-cell caleb"><div class="g-subj">C. Ciudadana</div><div class="g-tchr">Raggio Matías</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Casafú / Bergara</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Geografía</div><div class="g-tchr">Gauto / Ivagaza</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Ed. Art. Danza</div><div class="g-tchr">Sosa Codutti</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Casafú / Bergara</div></div>
+    <!-- 11:50 -->
+    <div class="g-time">11:50–12:50</div>
+    <div class="g-cell caleb"><div class="g-subj">Matemática</div><div class="g-tchr">Cáceres Pablo</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell caleb"><div class="g-subj">Matemática</div><div class="g-tchr">Cáceres Pablo</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <!-- 13:00 -->
+    <div class="g-time">13:00–14:00</div>
+    <div class="g-cell caleb"><div class="g-subj">Lenguajes Tecn.</div><div class="g-tchr">Monje Daniela</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Ed. Física G2.4</div><div class="g-tchr">Maciel Gustavo</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell caleb"><div class="g-subj">Sist. Tecnológicos II</div><div class="g-tchr">De La Torre Ariel</div></div>
+    <!-- 14:00 -->
+    <div class="g-time">14:00–15:00</div>
+    <div class="g-cell caleb"><div class="g-subj">Lenguajes Tecn.</div><div class="g-tchr">Monje Daniela</div></div>
+    <div class="g-cell caleb"><div class="g-subj">Ed. Física G2.4</div><div class="g-tchr">Maciel Gustavo</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell caleb"><div class="g-subj">Sist. Tecnológicos II</div><div class="g-tchr">De La Torre Ariel</div></div>
+    <!-- 15:10 -->
+    <div class="g-time">15:10–16:10</div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell caleb"><div class="g-subj">Proced. Técnicos II</div><div class="g-tchr">Matamala Eladio</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell caleb"><div class="g-subj">Proced. Técnicos II</div><div class="g-tchr">Matamala Eladio</div></div>
+    <!-- 16:10 -->
+    <div class="g-time">16:10–17:10</div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell caleb"><div class="g-subj">Proced. Técnicos II</div><div class="g-tchr">Matamala Eladio</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell caleb"><div class="g-subj">Proced. Técnicos II</div><div class="g-tchr">Matamala Eladio</div></div>
+  </div>
+</div>
+
+<div id="grilla-delfi" class="grilla-wrap" style="display:none;">
+  <div class="grilla">
+    <div class="g-head"></div>
+    <div class="g-head">Lunes</div><div class="g-head">Martes</div><div class="g-head">Miérc.</div><div class="g-head">Jueves</div><div class="g-head">Viernes</div>
+    <div class="g-time">7:30–8:30</div>
+    <div class="g-cell delfi"><div class="g-subj">Matemática</div><div class="g-tchr">Cáceres</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Inglés</div><div class="g-tchr">Gauna</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Ed. Artística</div><div class="g-tchr">Podmoguilnye</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Geografía</div><div class="g-tchr">Gauto / Ivagaza</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Biología</div><div class="g-tchr">Guerrero</div></div>
+    <div class="g-time">8:30–9:30</div>
+    <div class="g-cell delfi"><div class="g-subj">Matemática</div><div class="g-tchr">Cáceres</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Inglés</div><div class="g-tchr">Gauna</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Ed. Artística</div><div class="g-tchr">Podmoguilnye</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Geografía</div><div class="g-tchr">Gauto / Ivagaza</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Biología</div><div class="g-tchr">Guerrero</div></div>
+    <div class="g-time">9:45–10:45</div>
+    <div class="g-cell delfi"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Macello</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Historia</div><div class="g-tchr">Oliva</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Ed. en la Fe</div><div class="g-tchr">Gomez</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Cs. Naturales</div><div class="g-tchr">Mac Dougall</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Macello</div></div>
+    <div class="g-time">10:45–11:45</div>
+    <div class="g-cell delfi"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Macello</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Historia</div><div class="g-tchr">Oliva</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Ed. en la Fe</div><div class="g-tchr">Gomez</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Cs. Naturales</div><div class="g-tchr">Mac Dougall</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Práct. del Leng.</div><div class="g-tchr">Macello</div></div>
+    <div class="g-time">12:00–13:00</div>
+    <div class="g-cell delfi"><div class="g-subj">Físico-Química</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Matemática</div><div class="g-tchr">Cáceres</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-time">13:00–14:00</div>
+    <div class="g-cell delfi"><div class="g-subj">Físico-Química</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Matemática</div><div class="g-tchr">Cáceres</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-time">14:00–15:00</div>
+    <div class="g-cell delfi"><div class="g-subj">Cs. Ciudadana</div></div>
+    <div class="g-cell delfi"><div class="g-subj">Cs. Ciudadana</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-time">15:00–16:00</div>
+    <div class="g-cell delfi"><div class="g-subj">Cs. Ciudadana</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+  </div>
+</div>
+
+<div id="grilla-ada" class="grilla-wrap" style="display:none;">
+  <div class="grilla">
+    <div class="g-head"></div>
+    <div class="g-head">Lunes</div><div class="g-head">Martes</div><div class="g-head">Miérc.</div><div class="g-head">Jueves</div><div class="g-head">Viernes</div>
+    <div class="g-time">7:30–8:30</div>
+    <div class="g-cell ada"><div class="g-subj">Inglés</div><div class="g-tchr">Dozo</div></div>
+    <div class="g-cell ada"><div class="g-subj">Ec. Política</div><div class="g-tchr">Ricetta</div></div>
+    <div class="g-cell ada"><div class="g-subj">Filosofía</div><div class="g-tchr">Denis</div></div>
+    <div class="g-cell ada"><div class="g-subj">Ed. en la Fe</div><div class="g-tchr">Gomez</div></div>
+    <div class="g-cell ada"><div class="g-subj">Trab. y Ciud.</div><div class="g-tchr">Carzino</div></div>
+    <div class="g-time">8:30–9:30</div>
+    <div class="g-cell ada"><div class="g-subj">Inglés</div><div class="g-tchr">Dozo</div></div>
+    <div class="g-cell ada"><div class="g-subj">Literatura</div><div class="g-tchr">Andrés R.</div></div>
+    <div class="g-cell ada"><div class="g-subj">Filosofía</div><div class="g-tchr">Denis</div></div>
+    <div class="g-cell ada"><div class="g-subj">Ed. en la Fe</div><div class="g-tchr">Gomez</div></div>
+    <div class="g-cell ada"><div class="g-subj">Trab. y Ciud.</div><div class="g-tchr">Carzino</div></div>
+    <div class="g-time">9:45–10:45</div>
+    <div class="g-cell ada"><div class="g-subj">Mat. Cicl. Sup.</div><div class="g-tchr">Faye</div></div>
+    <div class="g-cell ada"><div class="g-subj">Proy. Org.</div><div class="g-tchr">Peralta</div></div>
+    <div class="g-cell ada"><div class="g-subj">Mat. Cicl. Sup.</div><div class="g-tchr">Faye</div></div>
+    <div class="g-cell ada"><div class="g-subj">Proy. Org.</div><div class="g-tchr">Peralta</div></div>
+    <div class="g-cell ada"><div class="g-subj">Literatura</div><div class="g-tchr">Andrés R.</div></div>
+    <div class="g-time">10:45–11:45</div>
+    <div class="g-cell ada"><div class="g-subj">Mat. Cicl. Sup.</div><div class="g-tchr">Faye</div></div>
+    <div class="g-cell ada"><div class="g-subj">Proy. Org.</div><div class="g-tchr">Peralta</div></div>
+    <div class="g-cell ada"><div class="g-subj">Mat. Cicl. Sup.</div><div class="g-tchr">Faye</div></div>
+    <div class="g-cell ada"><div class="g-subj">Proy. Org.</div><div class="g-tchr">Peralta</div></div>
+    <div class="g-cell ada"><div class="g-subj">Literatura</div><div class="g-tchr">Andrés R.</div></div>
+    <div class="g-time">12:00–13:00</div>
+    <div class="g-cell ada"><div class="g-subj">Arte</div><div class="g-tchr">Zarpas</div></div>
+    <div class="g-cell ada"><div class="g-subj">Ec. Política</div><div class="g-tchr">Ricetta</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-time">13:00–14:00</div>
+    <div class="g-cell ada"><div class="g-subj">Arte</div><div class="g-tchr">Zarpas</div></div>
+    <div class="g-cell ada"><div class="g-subj">Ec. Política</div><div class="g-tchr">Ricetta</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-time">16:00–17:00</div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell ada"><div class="g-subj">Ed. Física</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-time">17:00–18:00</div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell ada"><div class="g-subj">Ed. Física</div></div>
+    <div class="g-cell g-empty"></div>
+    <div class="g-cell g-empty"></div>
+  </div>
+</div>
+
+</div>
+</div>
+
 <script>
 function showTab(i) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
@@ -850,6 +1192,12 @@ function showTab(i) {
 }
 function toggleDay(el) {
   el.parentElement.classList.toggle('open');
+}
+function showChique(name) {
+  document.querySelectorAll('.grilla-wrap').forEach(g => g.style.display = 'none');
+  document.getElementById('grilla-' + name).style.display = 'block';
+  document.querySelectorAll('.chique-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
 }
 </script>
 </body>
